@@ -1,0 +1,58 @@
+[rule]
+# TODO revisit the logic & naming
+prehook = '' # string replace?
+transformer = '' # JMESPath notation
+posthook = '' # string replace?
+
+
+# rule human description i18n
+[languages]
+
+[languages.en]
+title = 'In JSX, replace `className` with `class`'
+description = '''
+Unlike in React, SolidJS doesn't need the weird `className` for the CSS styling. So, we can use the normal CSS `class` itself.
+'''
+
+
+[testcases]
+
+[testcases.0]
+test = 'className in style attribute gets replaced'
+
+input = '''
+render() {
+  let className = 'menu';
+  if (this.props.isActive) {
+    className += ' menu-active';
+  }
+  return <span className={className}>Menu</span>
+}
+'''
+# Expected output
+output = '''
+render() {
+  let className = 'menu';
+  if (this.props.isActive) {
+    className += ' menu-active';
+  }
+  return <span class={className}>Menu</span>
+}
+'''
+
+[testcases.1]
+test = 'className in other parts are not affected'
+
+input = '''
+  let className = 'menu';
+'''
+# Expected output
+output = '''
+  let className = 'menu';
+'''
+
+
+[meta]
+author = "@rrjanbiah" # GitHub username
+# references
+credits.0 = "https://www.youtube.com/watch?v=wu6HvLoi9VQ"
