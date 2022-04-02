@@ -1,19 +1,3 @@
-# 🎲 swc playground
+# ReactJS to SolidJS Builder Web UI - To generate conversion / transformation rules in a visual UI
 
-The playground of swc. Visit [https://play.swc.rs/](https://play.swc.rs/) to try it out.
-
-## ✨ Features
-
-- Two editors powered by [Monaco Editor](https://github.com/microsoft/monaco-editor) for editing input code and showing output code.
-- Configure swc with a friendly form.
-- Share code and config by URL.
-- Choose different versions of swc with an option.
-- Configure swc by editing JSON manually with IntelliSense.
-- Show AST of input code.
-- Dark mode.
-
-## 📜 License
-
-MIT License
-
-Copyright (c) 2021-present [Pig Fang](https://github.com/g-plane)
+Base code taken from the [swc-playground](https://github.com/swc-project/swc-playground) at `8dd6490f2ccd2f1532e3feb87e445a8c612b04f5`
