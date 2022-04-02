@@ -37,7 +37,7 @@ Started the development :-)
   - [x] Basic folder structure and naming conventions for the transform rules
   - [ ] ReactJS to SolidJS transpiler - JavaScript frontend
   - [ ] Builder UI
-  - [  Automatic migration guide generation
+  - [ ] Automatic migration guide generation
 - [ ] v0.0.2
   - [ ] Tailwind CSS based UI cleanup
 - [ ] v0.0.3
