@@ -33,18 +33,18 @@ Started the development :-)
 
 ## Roadmap
 
-- [] v0.0.1 
+- [ ] v0.0.1 
   - [x] Basic folder structure and naming conventions for the transform rules
-  - [] ReactJS to SolidJS transpiler - JavaScript frontend
-  - [] Builder UI
-  - [] Automatic migration guide generation
-- [] v0.0.2
-  - [] Tailwind CSS based UI cleanup
-- [] v0.0.3
-  - [] Rust-based converter
-- [] v0.0.4
-  - [] Convert the transpiler UI to SolidJS (from Next.js), preferably using this converter (?)
-  - [] Refactor the code so that the builder codes are not duplicated
+  - [ ] ReactJS to SolidJS transpiler - JavaScript frontend
+  - [ ] Builder UI
+  - [  Automatic migration guide generation
+- [ ] v0.0.2
+  - [ ] Tailwind CSS based UI cleanup
+- [ ] v0.0.3
+  - [ ] Rust-based converter
+- [ ] v0.0.4
+  - [ ] Convert the transpiler UI to SolidJS (from Next.js), preferably using this converter (?)
+  - [ ] Refactor the code so that the builder codes are not duplicated
 
 
 ## Contributing
