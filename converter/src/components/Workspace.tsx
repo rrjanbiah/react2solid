@@ -10,7 +10,6 @@ import { loadSwc, parse, swcVersionAtom, transform } from '../swc'
 import type { AST } from '../swc'
 
 import Configuration from './Configuration'
-import VersionSelect from './VersionSelect'
 import InputEditor from './InputEditor'
 import OutputEditor from './OutputEditor'
 
@@ -104,7 +103,6 @@ export default function Workspace() {
     <Main>
       <VStack spacing={4} alignItems="unset" gridArea="sidebar">
         <Configuration />
-        <VersionSelect isLoadingSwc={!swc && !error} />
       </VStack>
       <InputEditor output={output} />
       <OutputEditor
