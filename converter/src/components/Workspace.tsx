@@ -49,7 +49,7 @@ export default function Workspace() {
   const [code] = useAtom(codeAtom)
   const [swcConfig] = useAtom(swcConfigAtom)
   const [fileName] = useAtom(fileNameAtom)
-  const [viewMode, setViewMode] = useState('code')
+  const [viewMode, setViewMode] = useState('ast')
   const output = useMemo(() => {
     if (error) {
       return Err(String(error))

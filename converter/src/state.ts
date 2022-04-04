@@ -65,7 +65,7 @@ export const swcConfigAtom = atom<Config>({
   jsc: {
     parser: {
       syntax: 'ecmascript',
-      jsx: false,
+      jsx: true,
     },
     target: 'es5',
     loose: false,
