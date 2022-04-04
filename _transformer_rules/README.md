@@ -3,3 +3,5 @@ Language agnostic React to Solid code transformation rule, human readable descri
 File name convention: `%03x-slug.toml` (hexadecimal serial number in 3-digit, accompanied with the slug)
 
 TODO: Define filename length
+
+`reactjs-solidjs-libs-alternatives.csv` - SolidJS alternatives libraries for ReactJS in CSV
