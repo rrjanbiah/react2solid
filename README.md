@@ -14,7 +14,7 @@ This project has 5 sub-projects or modules:
 
 ## Status
 
-Started the development :-)
+Started the development :-) But, unfortunately, couldn't make progress with the initial approach as [I can't seem to find an option to convert AST to JSX in swc](https://github.com/swc-project/swc/discussions/4241) Babel seems to offer AST to JSX conversion, but don't seem to support new syntaxes. Need to closely check. Currently working on small PoCs.
 
 ## Architecture / Approach
 
