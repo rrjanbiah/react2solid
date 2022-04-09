@@ -1,10 +1,14 @@
 import { Title, Meta } from "solid-meta";
+// import { DEV } from 'solid-js';
 
 const Error404 = () => {
     const pageTitle = () => '404 - Not Found';
-
-    // https://codelabs.developers.google.com/codelabs/making-a-single-page-app-search-friendly#6
-    // window.location.href = "/404";
+    /*    
+        if (DEV === undefined) { // for production in GitHub pages, throw server 404
+            // https://codelabs.developers.google.com/codelabs/making-a-single-page-app-search-friendly#6
+            window.location.href = "/404";
+        }
+    */
     return (
         <>
             <Meta name="robots" content="noindex" />
