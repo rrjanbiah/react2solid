@@ -1,7 +1,17 @@
 {
-  "name": "vite-template-solid",
-  "version": "0.0.0",
-  "description": "",
+  "name": "react2solid",
+  "version": "0.0.1",
+  "description": "A set of utilities for the React to Solid conversion",
+  "info": "react2solid has sub projects/modules: 1. Converter web UI, 2. Builder web UI, 3. CLI for batch conversion, 4. Migration guide, 5. Language agnostic transformation rules with test cases.",
+  "homepage": "https://github.com/rrjanbiah/react2solid",
+  "contributors": [
+    {
+      "name": "R. Rajesh Jeba Anbiah",
+      "email": "rrjanbiah-at-Y!com",
+      "url": "https://twitter.com/rrjanbiah"
+    }
+  ],
+  "keywords": ["solidhack", "best_ecosystem", "solidjs", "react", "reactjs", "converter", "transpiler", "babel", "code-converter"],
   "scripts": {
     "dev": "vite",
     "build": "vite build",
