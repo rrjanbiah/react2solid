@@ -6,6 +6,10 @@ import WindiCSS from 'vite-plugin-windicss';
 export default defineConfig({
   optimizeDeps: {
     esbuildOptions: {
+      // Node.js global to browser globalThis
+      define: {
+        global: 'globalThis'
+      },
       // Enable esbuild polyfill plugins
       plugins: [
         NodeGlobalsPolyfillPlugin({
