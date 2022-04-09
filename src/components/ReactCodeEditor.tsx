@@ -1,5 +1,22 @@
 import { Component, onCleanup, onMount } from "solid-js";
+import editorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker';
+import tsWorker from 'monaco-editor/esm/vs/language/typescript/ts.worker?worker';
+import cssWorker from 'monaco-editor/esm/vs/language/css/css.worker?worker';
 import * as monaco from 'monaco-editor';
+
+(window as any).MonacoEnvironment = {
+    getWorker(_moduleId: unknown, label: string) {
+        switch (label) {
+            case 'css':
+                return new cssWorker();
+            case 'typescript':
+            case 'javascript':
+                return new tsWorker();
+            default:
+                return new editorWorker();
+        }
+    },
+};
 
 const ReactCodeEditor: Component = (props) => {
     let editorRef!: HTMLDivElement;
@@ -10,7 +27,7 @@ const ReactCodeEditor: Component = (props) => {
             noSyntaxValidation: true,
         });
         editor = monaco.editor.create(editorRef, {
-            value: "function hello() {\n\talert('Hello world!');\n}",
+            value: props.code(),
             language: 'typescript',
             //lineNumbers: 'off',
             roundedSelection: false,
@@ -25,12 +42,13 @@ const ReactCodeEditor: Component = (props) => {
         });
         editor.onDidChangeModelContent(() => {
             console.log(editor.getValue());
+            props.setReactCode(editor.getValue());
         });
     });
     onCleanup(() => editor?.dispose());
-    
+
     return (
-        <div ref={editorRef}></div>
+        <div ref={editorRef} class="h-screen"></div>
     );
 };
 
