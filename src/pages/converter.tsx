@@ -53,13 +53,12 @@ const Converter = () => {
                 <section class="text-gray-600 body-font">
                     <div class="container px-5 mx-auto flex flex-col">
                         <div class="flex flex-col sm:flex-row mt-10">
-                            <div class="sm:w-1/2 sm:pl-8 sm:py-8 sm:border-l border-gray-200 sm:border-t-0 border-t mt-4 pt-4 sm:mt-0 text-center sm:text-left">                                
-                                <ReactCodeEditor code={reactCode} setReactCode={setReactCode}/>
+                            <div class="sm:w-1/2 sm:pl-8 sm:py-8 sm:border-l border-gray-200 sm:border-t-0 border-t mt-4 pt-4 sm:mt-0 text-center sm:text-left">
+                                <ReactCodeEditor code={reactCode} setReactCode={setReactCode} />
                             </div>
 
                             <div class="sm:w-1/2 sm:pl-8 sm:py-8 sm:border-l border-gray-200 sm:border-t-0 border-t mt-4 pt-4 sm:mt-0 text-center sm:text-left">
-                                <textarea rows="20" cols="20">text</textarea>
-                                <SolidCodeEditor code={solidCode} setSolidCode={setSolidCode}/>
+                                <SolidCodeEditor code={solidCode} setSolidCode={setSolidCode} />
                             </div>
                         </div>
                     </div>
