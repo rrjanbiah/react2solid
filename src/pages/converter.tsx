@@ -10,12 +10,15 @@ const Converter = () => {
     const pageDescription = () => 'React to SolidJS online code converter aka transpiler';
     const [reactCode, setReactCode] = createSignal('');
     const [solidCode, setSolidCode] = createSignal();
+    const [errorMessage, setErrorMessage] = createSignal('');
+
     createEffect(() => {
         let reactAst;
+        setErrorMessage(''); // clear error message
         try {
             reactAst = parse(reactCode(), { sourceType: "module", plugins: ["jsx"], errorRecovery: true });
         } catch (e) {
-            console.error(e);
+            setErrorMessage(e.message);
         }
         const { code: solidCode } = generate(reactAst);
         setSolidCode(solidCode);
@@ -53,11 +56,16 @@ const Converter = () => {
                 <section class="text-gray-600 body-font">
                     <div class="container px-5 mx-auto flex flex-col">
                         <div class="flex flex-col sm:flex-row mt-10">
-                            <div class="sm:w-1/2 sm:pl-8 sm:py-8 sm:border-l border-gray-200 sm:border-t-0 border-t mt-4 pt-4 sm:mt-0 text-center sm:text-left">
+                            <div class="sm:w-1/2 text-left border-2">
                                 <ReactCodeEditor code={reactCode} setReactCode={setReactCode} />
+                                <Show when={errorMessage()} fallback={<div></div>}>
+                                    <div class="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700">
+                                        <p>{errorMessage}</p>
+                                    </div>
+                                </Show>
                             </div>
 
-                            <div class="sm:w-1/2 sm:pl-8 sm:py-8 sm:border-l border-gray-200 sm:border-t-0 border-t mt-4 pt-4 sm:mt-0 text-center sm:text-left">
+                            <div class="sm:w-1/2 text-left border-2">
                                 <SolidCodeEditor code={solidCode} setSolidCode={setSolidCode} />
                             </div>
                         </div>
