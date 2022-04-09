@@ -2,7 +2,7 @@ import { Component, onCleanup, onMount } from "solid-js";
 import * as monaco from 'monaco-editor';
 
 const ReactCodeEditor: Component = (props) => {
-    let edRef!: HTMLDivElement;
+    let editorRef!: HTMLDivElement;
     let editor: monaco.editor.IStandaloneCodeEditor;
     onMount(() => {
         monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
