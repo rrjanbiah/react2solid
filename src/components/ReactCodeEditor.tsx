@@ -41,7 +41,6 @@ const ReactCodeEditor: Component = (props) => {
             //model: null,
         });
         editor.onDidChangeModelContent(() => {
-            console.log(editor.getValue());
             props.setReactCode(editor.getValue());
         });
     });

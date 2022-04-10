@@ -5,7 +5,14 @@ import { Title, Meta } from "solid-meta";
 import ReactCodeEditor from "../components/ReactCodeEditor";
 import SolidCodeEditor from "../components/SolidCodeEditor";
 import { jqAsyncChain } from "../lib/jqAsyncChain";
+import jq from 'jq-web';
+import { transformersJson } from "../../_transformer_rules/transformers.js";
 
+// prepare transformers...
+let jqTransformers = await jqAsyncChain(['.. | .jq?'], transformersJson());
+jqTransformers = jqTransformers.filter(Boolean); // remove null through filter
+let stringTransformers = await jqAsyncChain(['.. | .string?'], transformersJson());
+stringTransformers = stringTransformers.filter(Boolean); // remove null through filter
 
 const Converter = () => {
     const pageTitle = () => 'ReactJS to SolidJS Converter';
@@ -15,27 +22,32 @@ const Converter = () => {
     const [reactErrorMessage, setReactErrorMessage] = createSignal('');
 
     createEffect(() => {
-        let reactAst;
-        setReactErrorMessage(''); // clear error message
-        try {
-            reactAst = parse(reactCode(), { sourceType: "module", plugins: ["jsx"], errorRecovery: true });
-        } catch (e) {
-            setReactErrorMessage(e.message);
+        // For string transformers, no need to run through AST
+        let reactCodeString = reactCode();
+        if (stringTransformers.length > 0) {
+            // run through string transformers...
+            stringTransformers.forEach(transformer => {
+                reactCodeString = reactCodeString.replaceAll(transformer.search, transformer.replace);
+            });
+            // update here in case, if there are no jq transformers...
+            setSolidCode(reactCodeString);
         }
-        console.log(reactAst);
-
-        // Test code.. hardcoded for now
-        let transformers = [
-            '.program.body[].declarations[].init.openingElement.attributes[].name.name |= (sub("^className$"; "c1"))',
-            'fail.program.body[].declarations[].init.openingElement.attributes[].name.name |= (sub("^c1$"; "c2"))',
-            '.program.body[].declarations[].init.openingElement.attributes[].name.name |= (sub("^c1$"; "c3"))', 
-            '.program.body[].declarations[].init.openingElement.attributes[].name.name |= (sub("^c3$"; "c4"))',
-            '.program.body[].declarations[].init.openingElement.attributes[].name.name |= (sub("^c4$"; "c5"))'
-        ];
-        jqAsyncChain(transformers, reactAst).then(result => {
-            const { code: solidCode } = generate(result);
-            setSolidCode(solidCode);
-        });
+        if (jqTransformers.length > 0) {
+            let reactAst;
+            setReactErrorMessage(''); // clear error message
+            try {
+                reactAst = parse(reactCodeString, { sourceType: "module", plugins: ["jsx"], errorRecovery: true });
+            } catch (e) {
+                setReactErrorMessage(e.message);
+            }
+            const reactAstString = JSON.stringify(reactAst);
+            let solidAstString = reactAstString;
+            let solidAst = JSON.parse(solidAstString);
+            jqAsyncChain(jqTransformers, solidAst).then(result => {
+                const { code: solidCode } = generate(result);
+                setSolidCode(solidCode);
+            });
+        }
     });
 
     return (
