@@ -1,5 +1,6 @@
 import { parse } from "@babel/parser";
 import generate from "@babel/generator";
+import jq from 'jq-web';
 import { createEffect, createSignal, Show } from "solid-js";
 import { Title, Meta } from "solid-meta";
 import ReactCodeEditor from "../components/ReactCodeEditor";
@@ -20,8 +21,12 @@ const Converter = () => {
         } catch (e) {
             setReactErrorMessage(e.message);
         }
+        console.log(reactAst);
         const { code: solidCode } = generate(reactAst);
-        setSolidCode(solidCode);
+// Quick debug: TODO fix        
+//        setSolidCode(solidCode);
+        console.log(jq.json(reactAst, '.program'));
+setSolidCode(JSON.stringify(reactAst, null, 4));
     });
 
     return (
