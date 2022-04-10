@@ -8,7 +8,7 @@ import SolidCodeEditor from "../components/SolidCodeEditor";
 const Converter = () => {
     const pageTitle = () => 'ReactJS to SolidJS Converter';
     const pageDescription = () => 'React to SolidJS online code converter aka transpiler';
-    const [reactCode, setReactCode] = createSignal('');
+    const [reactCode, setReactCode] = createSignal('TestReactCode');
     const [solidCode, setSolidCode] = createSignal();
     const [errorMessage, setErrorMessage] = createSignal('');
 

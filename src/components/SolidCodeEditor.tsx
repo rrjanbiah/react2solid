@@ -38,14 +38,23 @@ const SolidCodeEditor: Component = (props) => {
             lightbulb: { enabled: false },
             hover: { enabled: false },
             quickSuggestions: false,
-            //model: null,
+            //model: monaco.editor.createModel(props.code(), "typescript"),
         });
+        console.log(editor);
+        console.log(editor.getModel());
         editor.onDidChangeModelContent(() => {
             console.log(editor.getValue());
             props.setSolidCode(editor.getValue());
         });
     });
     onCleanup(() => editor?.dispose());
+    createEffect(() => {
+        // editor?.setValue(props.code);
+        // editor?.setValue(props.code());
+        console.log("updated...")
+        console.log(editor);
+        //console.log(editor.getModel());
+    });
 
     return (
         <>
