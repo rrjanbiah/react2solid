@@ -1,4 +1,58 @@
+import { parse } from "@babel/parser";
+import generate from "@babel/generator";
 import { Title, Meta } from "solid-meta";
+import { jqAsyncChain } from "../lib/jqAsyncChain";
+import { transformersJson } from "../../_transformer_rules/transformers.js";
+
+
+function react2solid(reactCodeString, transformerType, transformerRule) {
+    if (transformerType === 'string') {
+        return reactCodeString.replaceAll(transformerRule.search, transformerRule.replace);
+    }
+    if (transformerType === 'jq') {
+        let reactAst;
+        try {
+            reactAst = parse(reactCodeString, { sourceType: "module", plugins: ["jsx"], errorRecovery: true });
+        } catch (e) { console.error(e); }
+        let solidAst = reactAst;
+        jqAsyncChain([transformerRule], solidAst).then(result => {
+            const { code: solidCode } = generate(result);
+            // TODO: Fix as not returning inside promise
+            return solidCode;
+        });
+    }
+};
+
+let transformersObj = transformersJson();
+// stuff test case results...
+Object.keys(transformersObj).forEach(i => {
+    //console.log(transformersObj[i].languages.en.title);
+    // console.log(transformersObj[i].languages.en.description);
+    Object.keys(transformersObj[i].testcases).forEach(j => {
+        console.log(transformersObj[i].testcases[j].test);
+        console.log(transformersObj[i].testcases[j].input);
+        console.log(transformersObj[i].testcases[j].output);
+        Object.keys(transformersObj[i].rule.transformer).forEach(k => {
+            //console.log(transformersObj[i].rule.transformer[k].string);
+            //console.log(transformersObj[i].rule.transformer[k].jq);
+            if (transformersObj[i].rule.transformer[k].string !== undefined) {
+                transformersObj[i].rule.transformer[k].transformerType = 'string';
+                transformersObj[i].rule.transformer[k].transformer = transformersObj[i].rule.transformer[k].string;
+            } else if (transformersObj[i].rule.transformer[k].jq !== undefined) {
+                transformersObj[i].rule.transformer[k].transformerType = 'jq';
+                transformersObj[i].rule.transformer[k].transformer = transformersObj[i].rule.transformer[k].jq;
+            }
+            transformersObj[i].testcases[j].actualOutput = react2solid(transformersObj[i].testcases[j].input, transformersObj[i].rule.transformer[k].transformerType, transformersObj[i].rule.transformer[k].transformer);
+            if (transformersObj[i].testcases[j].actualOutput === transformersObj[i].testcases[j].output) {
+                transformersObj[i].testcases[j].result = 'Pass';
+            } else {
+                transformersObj[i].testcases[j].result = 'Fail';
+            }
+        });
+    });
+});
+console.log(transformersObj);
+
 
 const TestCases = () => {
     const pageTitle = 'Test Cases - ReactJS to SolidJS Transformer Rules';
