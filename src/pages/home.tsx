@@ -2,26 +2,26 @@ import { Title, Meta } from "solid-meta";
 import { Link } from 'solid-app-router';
 
 const Home = () => {
-    const pageTitle = () => 'ReactJS to SolidJS Converter & Utilities';
-    const pageDescription = () => 'React to Solid code conversion related utilities';
+    const pageTitle = 'ReactJS to SolidJS Converter & Utilities';
+    const pageDescription = 'React to Solid code conversion related utilities';
     return (
         <>
             <Meta name="robots" content="index, follow" />
 
-            <Title>{pageTitle()}</Title>
-            <Meta name="title" content={pageTitle()} />
-            <Meta name="description" content={pageDescription()} />
+            <Title>{pageTitle}</Title>
+            <Meta name="title" content={pageTitle} />
+            <Meta name="description" content={pageDescription} />
 
             <Meta property="og:type" content="website" />
             <Meta property="og:url" content="#" />
-            <Meta property="og:title" content={pageTitle()} />
-            <Meta property="og:description" content={pageDescription()} />
+            <Meta property="og:title" content={pageTitle} />
+            <Meta property="og:description" content={pageDescription} />
             <Meta property="og:image" content="cover.png" />
 
             <Meta property="twitter:card" content="summary_large_image" />
             <Meta property="twitter:url" content="#" />
-            <Meta property="twitter:title" content={pageTitle()} />
-            <Meta property="twitter:description" content={pageDescription()} />
+            <Meta property="twitter:title" content={pageTitle} />
+            <Meta property="twitter:description" content={pageDescription} />
             <Meta property="twitter:image" content="cover.png" />
 
             <section class="text-gray-600 body-font">
