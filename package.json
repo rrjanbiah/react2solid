@@ -29,6 +29,7 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "@esbuild-plugins/node-modules-polyfill": "^0.1.4",
     "@types/babel__generator": "^7.6.4",
     "@types/babel__traverse": "^7.14.2",
     "autoprefixer": "^10.4.4",
