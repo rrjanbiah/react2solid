@@ -1,7 +1,7 @@
 [rule]
 # TODO revisit the logic & naming
 prehook = '' # string replace?
-transformer = '' # JMESPath notation
+transformer = '.program.body[].declarations[].init.openingElement.attributes[].name.name |= (sub("^className$"; "class"))' # jq notation
 posthook = '' # string replace?
 
 
