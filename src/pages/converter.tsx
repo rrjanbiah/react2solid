@@ -1,10 +1,11 @@
 import { parse } from "@babel/parser";
 import generate from "@babel/generator";
-import jq from 'jq-web';
 import { createEffect, createSignal, Show } from "solid-js";
 import { Title, Meta } from "solid-meta";
 import ReactCodeEditor from "../components/ReactCodeEditor";
 import SolidCodeEditor from "../components/SolidCodeEditor";
+import { jqAsyncChain } from "../lib/jqAsyncChain";
+
 
 const Converter = () => {
     const pageTitle = () => 'ReactJS to SolidJS Converter';
@@ -22,11 +23,19 @@ const Converter = () => {
             setReactErrorMessage(e.message);
         }
         console.log(reactAst);
-        const { code: solidCode } = generate(reactAst);
-// Quick debug: TODO fix        
-//        setSolidCode(solidCode);
-        console.log(jq.json(reactAst, '.program'));
-setSolidCode(JSON.stringify(reactAst, null, 4));
+
+        // Test code.. hardcoded for now
+        let transformers = [
+            '.program.body[].declarations[].init.openingElement.attributes[].name.name |= (sub("^className$"; "c1"))',
+            'fail.program.body[].declarations[].init.openingElement.attributes[].name.name |= (sub("^c1$"; "c2"))',
+            '.program.body[].declarations[].init.openingElement.attributes[].name.name |= (sub("^c1$"; "c3"))', 
+            '.program.body[].declarations[].init.openingElement.attributes[].name.name |= (sub("^c3$"; "c4"))',
+            '.program.body[].declarations[].init.openingElement.attributes[].name.name |= (sub("^c4$"; "c5"))'
+        ];
+        jqAsyncChain(transformers, reactAst).then(result => {
+            const { code: solidCode } = generate(result);
+            setSolidCode(solidCode);
+        });
     });
 
     return (
