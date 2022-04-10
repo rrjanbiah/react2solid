@@ -1,0 +1,32 @@
+[rule]
+transformer.0.jq = 'walk(if type == "object" and .value == "react" then .value |= "solid-js" else . end)'
+
+
+# rule human description i18n
+[languages]
+
+[languages.en]
+title = 'Replace `react` import with `solid-js`'
+description = '''
+Replace the `react` library in import with `solid-js`
+'''
+
+
+[testcases]
+
+[testcases.0]
+test = 'react gets replaced with solid-js in import'
+
+input = '''
+import React, { useState } from 'react';
+'''
+# Expected output
+output = '''
+import React, { useState } from "solid-js";
+'''
+
+
+[meta]
+author = "@rrjanbiah" # GitHub username
+# references
+credits.0 = "https://www.youtube.com/watch?v=wu6HvLoi9VQ"

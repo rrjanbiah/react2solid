@@ -1,8 +1,6 @@
 [rule]
-# TODO revisit the logic & naming
-prehook = '' # string replace?
-transformer = '.program.body[].declarations[].init.openingElement.attributes[].name.name |= (sub("^className$"; "class"))' # jq notation
-posthook = '' # string replace?
+transformer.0.string.search = 'className'
+transformer.0.string.replace = 'class'
 
 
 # rule human description i18n
@@ -29,22 +27,20 @@ const element = (
 '''
 # Expected output
 output = '''
-const element = (
-  <h1 class="greeting">
+const element = <h1 class="greeting">
     Hello, world!
-  </h1>
-);
+  </h1>;
 '''
 
 [testcases.1]
 test = 'className in other parts are not affected'
 
 input = '''
-  let className = 'menu';
+let className = 'menu';
 '''
 # Expected output
 output = '''
-  let className = 'menu';
+let className = 'menu';
 '''
 
 

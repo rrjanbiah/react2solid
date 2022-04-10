@@ -1,0 +1,33 @@
+[rule]
+transformer.0.string.search = 'useState'
+transformer.0.string.replace = 'createSignal'
+
+
+# rule human description i18n
+[languages]
+
+[languages.en]
+title = 'Replace `useState` with `createSignal`'
+description = '''
+`createSignal` is the SolidJS equivalent of React `useState`
+'''
+
+
+[testcases]
+
+[testcases.0]
+test = 'useState gets replaced with createSignal'
+
+input = '''
+const [count, setCount] = useState(0);
+'''
+# Expected output
+output = '''
+const [count, setCount] = createSignal(0);
+'''
+
+
+[meta]
+author = "@rrjanbiah" # GitHub username
+# references
+credits.0 = "https://www.youtube.com/watch?v=wu6HvLoi9VQ"
