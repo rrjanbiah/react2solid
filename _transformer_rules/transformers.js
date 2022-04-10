@@ -28,7 +28,7 @@ export function transformersJson() {
   "testcases": {
     "0": {
       "input": "const element = (\n  <h1 className=\"greeting\">\n    Hello, world!\n  </h1>\n);\n",
-      "output": "const element = <h1 class=\"greeting\">\n    Hello, world!\n  </h1>;\n",
+      "output": "const element = (\n  <h1 class=\"greeting\">\n    Hello, world!\n  </h1>\n);\n",
       "test": "className in style attribute gets replaced"
     },
     "1": {
