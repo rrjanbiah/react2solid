@@ -1,6 +1,6 @@
 import { parse } from "@babel/parser";
 import generate from "@babel/generator";
-import { createEffect, createSignal } from "solid-js";
+import { createEffect, createSignal, Show } from "solid-js";
 import { Title, Meta } from "solid-meta";
 import ReactCodeEditor from "../components/ReactCodeEditor";
 import SolidCodeEditor from "../components/SolidCodeEditor";
@@ -8,17 +8,17 @@ import SolidCodeEditor from "../components/SolidCodeEditor";
 const Converter = () => {
     const pageTitle = () => 'ReactJS to SolidJS Converter';
     const pageDescription = () => 'React to SolidJS online code converter aka transpiler';
-    const [reactCode, setReactCode] = createSignal('TestReactCode');
+    const [reactCode, setReactCode] = createSignal('');
     const [solidCode, setSolidCode] = createSignal();
-    const [errorMessage, setErrorMessage] = createSignal('');
+    const [reactErrorMessage, setReactErrorMessage] = createSignal('');
 
     createEffect(() => {
         let reactAst;
-        setErrorMessage(''); // clear error message
+        setReactErrorMessage(''); // clear error message
         try {
             reactAst = parse(reactCode(), { sourceType: "module", plugins: ["jsx"], errorRecovery: true });
         } catch (e) {
-            setErrorMessage(e.message);
+            setReactErrorMessage(e.message);
         }
         const { code: solidCode } = generate(reactAst);
         setSolidCode(solidCode);
@@ -57,15 +57,17 @@ const Converter = () => {
                     <div class="container px-5 mx-auto flex flex-col">
                         <div class="flex flex-col sm:flex-row mt-10">
                             <div class="sm:w-1/2 text-left border-2">
+                                <h3 class="font-medium title-font m-2 text-gray-900">ReactJS Code</h3>
                                 <ReactCodeEditor code={reactCode} setReactCode={setReactCode} />
-                                <Show when={errorMessage()} fallback={<div></div>}>
+                                <Show when={reactErrorMessage()} fallback={<div></div>}>
                                     <div class="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700">
-                                        <p>{errorMessage}</p>
+                                        <p>{reactErrorMessage}</p>
                                     </div>
                                 </Show>
                             </div>
 
                             <div class="sm:w-1/2 text-left border-2">
+                                <h3 class="font-medium title-font m-2 text-gray-900">SolidJS Code</h3>
                                 <SolidCodeEditor code={solidCode} setSolidCode={setSolidCode} />
                             </div>
                         </div>
