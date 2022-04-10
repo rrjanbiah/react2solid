@@ -39,9 +39,7 @@ const Converter = () => {
             } catch (e) {
                 setReactErrorMessage(e.message);
             }
-            const reactAstString = JSON.stringify(reactAst);
-            let solidAstString = reactAstString;
-            let solidAst = JSON.parse(solidAstString);
+            let solidAst = reactAst;
             jqAsyncChain(jqTransformers, solidAst).then(result => {
                 const { code: solidCode } = generate(result);
                 setSolidCode(solidCode);
