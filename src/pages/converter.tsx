@@ -5,7 +5,6 @@ import { Title, Meta } from "solid-meta";
 import ReactCodeEditor from "../components/ReactCodeEditor";
 import SolidCodeEditor from "../components/SolidCodeEditor";
 import { jqAsyncChain } from "../lib/jqAsyncChain";
-import jq from 'jq-web';
 import { transformersJson } from "../../_transformer_rules/transformers.js";
 
 // prepare transformers...
