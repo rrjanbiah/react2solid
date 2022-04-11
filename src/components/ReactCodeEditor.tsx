@@ -1,53 +1,12 @@
-import { Component, onCleanup, onMount } from "solid-js";
-import editorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker';
-import tsWorker from 'monaco-editor/esm/vs/language/typescript/ts.worker?worker';
-import cssWorker from 'monaco-editor/esm/vs/language/css/css.worker?worker';
-import * as monaco from 'monaco-editor';
-
-(window as any).MonacoEnvironment = {
-    getWorker(_moduleId: unknown, label: string) {
-        switch (label) {
-            case 'css':
-                return new cssWorker();
-            case 'typescript':
-            case 'javascript':
-                return new tsWorker();
-            default:
-                return new editorWorker();
-        }
-    },
-};
+import { Component } from "solid-js";
 
 const ReactCodeEditor: Component = (props) => {
-    let editorRef!: HTMLDivElement;
-    let editor: monaco.editor.IStandaloneCodeEditor;
-    onMount(() => {
-        monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
-            noSemanticValidation: true,
-            noSyntaxValidation: true,
-        });
-        editor = monaco.editor.create(editorRef, {
-            value: props.code(),
-            language: 'typescript',
-            //lineNumbers: 'off',
-            roundedSelection: false,
-            scrollBeyondLastLine: false,
-            readOnly: false,
-            //theme: 'vs-dark',
-            minimap: { enabled: false },
-            lightbulb: { enabled: false },
-            hover: { enabled: false },
-            quickSuggestions: false,
-            //model: null,
-        });
-        editor.onDidChangeModelContent(() => {
-            props.setReactCode(editor.getValue());
-        });
-    });
-    onCleanup(() => editor?.dispose());
-
-    return (
-        <div ref={editorRef} class="h-screen"></div>
+     return (
+        <>
+            <textarea cols="20" rows="10" class="h-screen form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                onInput={(evt) => props.setReactCode(evt.currentTarget.value)}
+            >{props.code}</textarea>
+        </>
     );
 };
 
