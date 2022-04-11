@@ -9,11 +9,16 @@ import MigrationGuide from './pages/migration-guide';
 import LibsAlternatives from './pages/libs-alternatives';
 import TestCases from './pages/test-cases';
 import Error404 from './pages/error404';
+import About from './pages/about';
 
 export const routes: RouteDefinition[] = [
     {
         path: '/',
         component: Home,
+    },
+    {
+        path: '/about',
+        component: About,
     },
     {
         path: '/reactjs-to-solidjs-converter',
