@@ -3,9 +3,10 @@ import generate from "@babel/generator";
 import { Title, Meta } from "solid-meta";
 import { jqAsyncChain } from "../lib/jqAsyncChain";
 import { transformersJson } from "../../_transformer_rules/transformers.js";
+import { For } from "solid-js";
 
 
-function react2solid(reactCodeString, transformerType, transformerRule) {
+async function react2solid(reactCodeString, transformerType, transformerRule) {
     if (transformerType === 'string') {
         return reactCodeString.replaceAll(transformerRule.search, transformerRule.replace);
     }
@@ -15,48 +16,49 @@ function react2solid(reactCodeString, transformerType, transformerRule) {
             reactAst = parse(reactCodeString, { sourceType: "module", plugins: ["jsx"], errorRecovery: true });
         } catch (e) { console.error(e); }
         let solidAst = reactAst;
-        jqAsyncChain([transformerRule], solidAst).then(result => {
-            const { code: solidCode } = generate(result);
-            // TODO: Fix as not returning inside promise
-            return solidCode;
-        });
+        solidAst = await jqAsyncChain([transformerRule], solidAst);
+        const { code: solidCode } = generate(solidAst);
+        return solidCode;
     }
 };
 
-let transformersObj = transformersJson();
-// stuff test case results...
-Object.keys(transformersObj).forEach(i => {
-    //console.log(transformersObj[i].languages.en.title);
-    // console.log(transformersObj[i].languages.en.description);
-    Object.keys(transformersObj[i].testcases).forEach(j => {
-        console.log(transformersObj[i].testcases[j].test);
-        console.log(transformersObj[i].testcases[j].input);
-        console.log(transformersObj[i].testcases[j].output);
-        Object.keys(transformersObj[i].rule.transformer).forEach(k => {
-            //console.log(transformersObj[i].rule.transformer[k].string);
-            //console.log(transformersObj[i].rule.transformer[k].jq);
-            if (transformersObj[i].rule.transformer[k].string !== undefined) {
-                transformersObj[i].rule.transformer[k].transformerType = 'string';
-                transformersObj[i].rule.transformer[k].transformer = transformersObj[i].rule.transformer[k].string;
-            } else if (transformersObj[i].rule.transformer[k].jq !== undefined) {
-                transformersObj[i].rule.transformer[k].transformerType = 'jq';
-                transformersObj[i].rule.transformer[k].transformer = transformersObj[i].rule.transformer[k].jq;
-            }
-            transformersObj[i].testcases[j].actualOutput = react2solid(transformersObj[i].testcases[j].input, transformersObj[i].rule.transformer[k].transformerType, transformersObj[i].rule.transformer[k].transformer);
-            if (transformersObj[i].testcases[j].actualOutput === transformersObj[i].testcases[j].output) {
-                transformersObj[i].testcases[j].result = 'Pass';
-            } else {
-                transformersObj[i].testcases[j].result = 'Fail';
-            }
-        });
-    });
-});
-console.log(transformersObj);
+
 
 
 const TestCases = () => {
     const pageTitle = 'Test Cases - ReactJS to SolidJS Transformer Rules';
     const pageDescription = 'React to SolidJS transformer rules related test cases';
+
+    let tTransformers = transformersJson();
+    // stuff test case results...
+    Object.keys(tTransformers).forEach(i => {
+        //console.log(tTransformers[i].languages.en.title);
+        // console.log(tTransformers[i].languages.en.description);
+        Object.keys(tTransformers[i].testcases).forEach(j => {
+            // console.log(tTransformers[i].testcases[j].test);
+            // console.log(tTransformers[i].testcases[j].input);
+            // console.log(tTransformers[i].testcases[j].output);
+            Object.keys(tTransformers[i].rule.transformer).forEach(async k => {
+                //console.log(tTransformers[i].rule.transformer[k].string);
+                //console.log(tTransformers[i].rule.transformer[k].jq);
+                if (tTransformers[i].rule.transformer[k].string !== undefined) {
+                    tTransformers[i].rule.transformer[k].transformerType = 'string';
+                    tTransformers[i].rule.transformer[k].transformer = tTransformers[i].rule.transformer[k].string;
+                } else if (tTransformers[i].rule.transformer[k].jq !== undefined) {
+                    tTransformers[i].rule.transformer[k].transformerType = 'jq';
+                    tTransformers[i].rule.transformer[k].transformer = tTransformers[i].rule.transformer[k].jq;
+                }
+                tTransformers[i].testcases[j].actualOutput = await react2solid(tTransformers[i].testcases[j].input, tTransformers[i].rule.transformer[k].transformerType, tTransformers[i].rule.transformer[k].transformer);
+                if (tTransformers[i].testcases[j].actualOutput === tTransformers[i].testcases[j].output) {
+                    tTransformers[i].testcases[j].result = 'Pass';
+                } else {
+                    tTransformers[i].testcases[j].result = 'Fail';
+                }
+            });
+        });
+    });
+    console.log(tTransformers); // TODO: Some keys (stuffed keys??) don't get displayed in JSX
+
 
     return (
         <>
@@ -85,6 +87,27 @@ const TestCases = () => {
                         <p class="w-full leading-relaxed text-sm text-gray-400">{pageDescription}</p>
                         <div class="h-1 w-20 bg-indigo-500 rounded"></div>
                     </div>
+                </div>
+                <div class="-my-8 divide-y-2 divide-gray-100">
+                    <For each={tTransformers}>{(tTransformer, i) =>
+                        <>
+                            <For each={tTransformer.testcases}>{(tTestCase, j) =>
+                                <>
+                                    <div class="py-8 flex flex-wrap md:flex-nowrap">
+                                        <div class="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
+                                            <span class="font-semibold title-font text-gray-700">Result: {tTestCase.result}</span>
+                                        </div>
+                                        <div class="md:flex-grow">
+                                            <h2 class="text-2xl font-medium text-gray-900 title-font mb-2">{tTestCase.test}</h2>
+                                            <pre>input: {tTestCase.input}</pre>
+                                            <pre>output: {tTestCase.output}</pre>
+                                            <pre>actualOutput: {tTestCase.actualOutput}</pre>
+                                        </div>
+                                    </div>
+                                </>
+                            }</For>
+                        </>
+                    }</For>
                 </div>
             </div>
         </>
