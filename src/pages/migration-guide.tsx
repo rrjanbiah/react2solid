@@ -1,5 +1,7 @@
 import { Title, Meta } from "solid-meta";
+import { Link } from 'solid-app-router';
 import { transformersJson } from "../../_transformer_rules/transformers.js";
+import { For } from "solid-js";
 
 const MigrationGuide = () => {
     const pageTitle = 'ReactJS to SolidJS - Migration Guide';
@@ -31,7 +33,7 @@ const MigrationGuide = () => {
                 <div class="flex flex-wrap w-full">
                     <div class="w-full mb-6 lg:mb-0">
                         <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900">{pageTitle}</h1>
-                        <p class="w-full leading-relaxed text-sm text-gray-400">{pageDescription}</p>
+                        <p class="w-full leading-relaxed text-sm text-gray-400">{pageDescription} Automatically generated from the <a href="https://github.com/rrjanbiah/react2solid/tree/main/_transformer_rules" target="_blank" class="text-gray-600">language agnostic transformer rules</a>. Build new rules easily using the <Link href="/builder" class="text-indigo-500">builder UI</Link>.</p>
                         <div class="h-1 w-20 bg-indigo-500 rounded"></div>
                     </div>
                 </div>
