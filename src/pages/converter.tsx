@@ -22,6 +22,7 @@ const Converter = () => {
 
     createEffect(() => {
         // For string transformers, no need to run through AST
+        // TODO: Recheck if so.. what if someone breaks the JSON?
         let reactCodeString = reactCode();
         if (stringTransformers.length > 0) {
             // run through string transformers...
@@ -35,7 +36,7 @@ const Converter = () => {
             let reactAst;
             setReactErrorMessage(''); // clear error message
             try {
-                reactAst = parse(reactCodeString, { sourceType: "module", plugins: ["jsx"], errorRecovery: true });
+                reactAst = parse(reactCodeString, { sourceType: "module", plugins: ["jsx"], errorRecovery: false });
             } catch (e) {
                 setReactErrorMessage(e.message);
             }
