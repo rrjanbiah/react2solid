@@ -11,32 +11,32 @@ export function transformersJson() {
   },
   "meta": {
     "author": "@rrjanbiah",
-    "credits": {
-      "0": "https://www.youtube.com/watch?v=wu6HvLoi9VQ"
-    }
+    "credits": [
+      "https://www.youtube.com/watch?v=wu6HvLoi9VQ"
+    ]
   },
   "rule": {
-    "transformer": {
-      "0": {
+    "transformer": [
+      {
         "string": {
           "replace": "class",
           "search": "className"
         }
       }
-    }
+    ]
   },
-  "testcases": {
-    "0": {
+  "testcases": [
+    {
       "input": "const element = (\n  <h1 className=\"greeting\">\n    Hello, world!\n  </h1>\n);\n",
       "output": "const element = (\n  <h1 class=\"greeting\">\n    Hello, world!\n  </h1>\n);\n",
       "test": "className in style attribute gets replaced"
     },
-    "1": {
+    {
       "input": "let className = 'menu';\n",
       "output": "let className = 'menu';\n",
       "test": "className in other parts are not affected"
     }
-  }
+  ]
 },
 {
   "languages": {
@@ -52,22 +52,22 @@ export function transformersJson() {
     }
   },
   "rule": {
-    "transformer": {
-      "0": {
+    "transformer": [
+      {
         "string": {
           "replace": "createSignal",
           "search": "useState"
         }
       }
-    }
+    ]
   },
-  "testcases": {
-    "0": {
+  "testcases": [
+    {
       "input": "const [count, setCount] = useState(0);\n",
       "output": "const [count, setCount] = createSignal(0);\n",
       "test": "useState gets replaced with createSignal"
     }
-  }
+  ]
 },
 {
   "languages": {
@@ -78,23 +78,23 @@ export function transformersJson() {
   },
   "meta": {
     "author": "@rrjanbiah",
-    "credits": {
-      "0": "https://www.youtube.com/watch?v=wu6HvLoi9VQ"
-    }
+    "credits": [
+      "https://www.youtube.com/watch?v=wu6HvLoi9VQ"
+    ]
   },
   "rule": {
-    "transformer": {
-      "0": {
+    "transformer": [
+      {
         "jq": "walk(if type == \"object\" and .value == \"react\" then .value |= \"solid-js\" else . end)"
       }
-    }
+    ]
   },
-  "testcases": {
-    "0": {
+  "testcases": [
+    {
       "input": "import React, { useState } from 'react';\n",
-      "output": "import React, { useState } from \"solid-js\";\n",
+      "output": "import React, { useState } from \"solid-js\";",
       "test": "react gets replaced with solid-js in import"
     }
-  }
+  ]
 }]
 }
