@@ -2,9 +2,7 @@ import { For } from "solid-js";
 import { Title, Meta } from "solid-meta";
 import { csvString2json } from "../lib/csv";
 
-// TODO check path
-//const response = await fetch("./assets/reactjs-solidjs-libs-alternatives.csv");
-const response = await fetch("../_transformer_rules/reactjs-solidjs-libs-alternatives.csv");
+const response = await fetch("./assets/reactjs-solidjs-libs-alternatives.csv");
 const data = await response.text();
 const alternativeLibs = csvString2json(data);
 
