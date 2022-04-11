@@ -1,0 +1,6 @@
+Keywords,ReactJS Lib,ReactJS Lib URL,SolidJS Lib,SolidJS Lib URL,API Match Score
+"meta,title,head,SEO",next/head,https://nextjs.org/docs/api-reference/next/head,solid-meta,https://github.com/solidjs/solid-meta,90
+"virtualized,window,performance",react-virtualized,https://bvaughn.github.io/react-virtualized/,solid-virtual-container,https://github.com/minht11/solid-virtual-container,50
+"virtualized,window,performance",react-window,https://github.com/bvaughn/react-window,solid-windowed,https://github.com/titoBouzout/solid-windowed,40
+markdown,remark-react,https://github.com/remarkjs/remark-react,solid-marked,https://github.com/LXSMNSYC/solid-marked,40
+"table,sort,pagination",sb-react-table,https://github.com/steelbrain/react-table,solid-simple-table,https://github.com/aminya/solid-simple-table,90
