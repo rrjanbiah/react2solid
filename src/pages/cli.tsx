@@ -32,6 +32,17 @@ const Cli = () => {
                         <div class="h-1 w-20 bg-indigo-500 rounded"></div>
                     </div>
                 </div>
+
+                <div class="py-8 flex flex-wrap md:flex-nowrap">
+                    <div class="md:w-1/12 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
+                        <span class="flex w-16 h-16 mx-auto items-center justify-center text-2xl font-bold font-heading rounded-full bg-red-50 text-red-600">!</span>
+                    </div>
+                    <div class="md:flex-grow">
+                        <h2 class="text-2xl font-medium text-gray-900 title-font mb-2">TODO</h2>
+                        <p class="leading-relaxed">Challenges: Currently using jq-web and so couldn't make CLI easily.
+                        </p>
+                    </div>
+                </div>
             </div>
         </>
     );
