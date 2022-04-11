@@ -49,8 +49,8 @@ const App: Component = () => {
               </svg>
               <span class="ml-3 text-xl">react2solid</span>
             </Link>
-            <p class="text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4">Email:
-              <span class="text-indigo-500">rrjanbiah-at-Y!com</span>
+            <p class="text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4">Email: 
+              <span class="text-indigo-500">rrjanbiah-at-Y!com</span> Available for remote/freelance :-)
             </p>
             <span class="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">
               <a href="https://twitter.com/rrjanbiah" class="ml-3 text-gray-500 hover:text-indigo-500">
