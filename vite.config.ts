@@ -1,6 +1,8 @@
 import NodeGlobalsPolyfillPlugin from '@esbuild-plugins/node-globals-polyfill';
 import { defineConfig } from 'vite';
 import solidPlugin from 'vite-plugin-solid';
+import rollupNodePolyFill from 'rollup-plugin-node-polyfills'
+
 
 export default defineConfig({
   optimizeDeps: {
@@ -13,16 +15,21 @@ export default defineConfig({
       plugins: [
         NodeGlobalsPolyfillPlugin({
           process: true,
-          buffer: true,
+          buffer: true
         })
       ]
     }
   },
-  plugins: [
-    solidPlugin(),
-  ],
+  plugins: [solidPlugin()],
   build: {
+    rollupOptions: {
+      plugins: [
+        // Enable rollup polyfills plugin
+        // used during production bundling
+        rollupNodePolyFill()
+      ]
+    },
     target: 'esnext',
     polyfillDynamicImport: false,
-  },
+  }
 });
