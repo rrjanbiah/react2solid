@@ -5,6 +5,7 @@ import rollupNodePolyFill from 'rollup-plugin-node-polyfills'
 
 
 export default defineConfig({
+  base: './', // default is / and it breaks in GitHub pages
   optimizeDeps: {
     esbuildOptions: {
       // Node.js global to browser globalThis
