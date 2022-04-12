@@ -18,7 +18,7 @@ This project has 5 sub-projects or modules:
 
 ## Status
 
-Started with swc, JMESPath and Rust in mind, but had to switch to the Babel, jq and SolidJS due to multiple challenges (such as [^](https://github.com/swc-project/swc/discussions/4241)). Now, an MVP is ready without CLI.
+Started with swc, JMESPath and Rust in mind, but had to switch to the Babel, jq and SolidJS due to multiple challenges (such as [1](https://github.com/swc-project/swc/discussions/4241), [2](https://github.com/rrjanbiah/react2solid/issues/6), [3](https://github.com/rrjanbiah/react2solid/issues/8)). Now, an MVP is ready without CLI.
 
 ## Architecture / Approach
 
