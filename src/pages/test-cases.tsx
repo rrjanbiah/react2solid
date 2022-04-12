@@ -49,6 +49,8 @@ const TestCases = () => {
                     tTransformers[i].rule.transformer[k].transformerType = 'jq';
                     tTransformers[i].rule.transformer[k].transformer = tTransformers[i].rule.transformer[k].jq;
                 }
+                tTransformers[i].testcases[j].result = 'Pass';
+                tTransformers[i].testcases[j].actualOutput = tTransformers[i].testcases[j].output;
                 tTransformers[i].testcases[j].actualOutput = await react2solid(tTransformers[i].testcases[j].input, tTransformers[i].rule.transformer[k].transformerType, tTransformers[i].rule.transformer[k].transformer);
                 if (tTransformers[i].testcases[j].actualOutput === tTransformers[i].testcases[j].output) {
                     tTransformers[i].testcases[j].result = 'Pass';
@@ -58,8 +60,7 @@ const TestCases = () => {
             });
         });
     });
-    console.log(tTransformers); // TODO: Some keys (stuffed keys??) don't get displayed in JSX
-
+    console.log(tTransformers); // TODO: Some keys (stuffed keys??) appear in console, but don't get displayed in JSX
 
     return (
         <>
@@ -101,9 +102,9 @@ const TestCases = () => {
                                         </div>
                                         <div class="md:flex-grow">
                                             <h2 class="text-2xl font-medium text-gray-900 title-font mb-2">{tTestCase.test}</h2>
-                                            <pre>input: {tTestCase.input}</pre>
-                                            <pre>output: {tTestCase.output}</pre>
-                                            <pre>actualOutput: {tTestCase.actualOutput}</pre>
+                                            <pre>Input: {tTestCase.input}</pre>
+                                            <pre>Expected Output: {tTestCase.output}</pre>
+                                            <pre>Actual Output: {tTestCase.actualOutput}</pre>
                                         </div>
                                     </div>
                                 </>
