@@ -60,7 +60,7 @@ const MigrationGuide = () => {
                                         </div>
                                         <div class="md:flex-grow">
                                             <span class="font-semibold title-font text-gray-700">Example (SolidJS):</span>
-                                            <pre>output: {tTestCase.output}</pre>
+                                            <pre>{tTestCase.output}</pre>
                                         </div>
                                     </div>
                                 </>
